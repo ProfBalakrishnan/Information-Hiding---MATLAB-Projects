@@ -1,0 +1,167 @@
+clc;
+close all;
+clear all;
+
+
+     PCStream='';
+
+i=(imread('F:\project 2016\images\ipimages\thirdimg.png'));
+ figure();
+ imhist(i);
+
+im1=imresize(i,[720,720]);
+imshow(im1);
+imsave;
+
+b1=im1(1:240,1:240,:);
+b2=im1(1:240,241:480,:);
+b3=im1(1:240,481:720,:);
+
+b4=im1(241:480,1:240,:);
+b5=im1(241:480,241:480,:);
+b6=im1(241:480,481:720,:);
+
+b7=im1(481:720,1:240,:);
+b8=im1(481:720,241:480,:);
+b9=im1(481:720,481:720,:);
+
+
+
+
+
+
+ 
+imupdated =[b1  b2  b3  
+            b4  b5  b6  
+            b7  b8  b9];
+ 
+figure;
+%subplot(2,2,1);
+imshow(imupdated);
+
+
+
+[b1_1,b1_2,b1_3,b1_4,b1_5,b1_6,b1_7,b1_8,b1_9]=imspliting(b1);
+[b2_1,b2_2,b2_3,b2_4,b2_5,b2_6,b2_7,b2_8,b2_9]=imspliting(b2);
+[b3_1,b3_2,b3_3,b3_4,b3_5,b3_6,b3_7,b3_8,b3_9]=imspliting(b3);
+[b4_1,b4_2,b4_3,b4_4,b4_5,b4_6,b4_7,b4_8,b4_9]=imspliting(b4);
+[b5_1,b5_2,b5_3,b5_4,b5_5,b5_6,b5_7,b5_8,b5_9]=imspliting(b5);
+[b6_1,b6_2,b6_3,b6_4,b6_5,b6_6,b6_7,b6_8,b6_9]=imspliting(b6);
+[b7_1,b7_2,b7_3,b7_4,b7_5,b7_6,b7_7,b7_8,b7_9]=imspliting(b7);
+[b8_1,b8_2,b8_3,b8_4,b8_5,b8_6,b8_7,b8_8,b8_9]=imspliting(b8);
+[b9_1,b9_2,b9_3,b9_4,b9_5,b9_6,b9_7,b9_8,b9_9]=imspliting(b9);
+
+
+
+originalblk = [	b1_1,b1_2,b1_3,b1_4,b1_5,b1_6,b1_7,b1_8,b1_9
+ 	      	b2_1,b2_2,b2_3,b2_4,b2_5,b2_6,b2_7,b2_8,b2_9
+	      	b3_1,b3_2,b3_3,b3_4,b3_5,b3_6,b3_7,b3_8,b3_9
+		b4_1,b4_2,b4_3,b4_4,b4_5,b4_6,b4_7,b4_8,b4_9
+		b5_1,b5_2,b5_3,b5_4,b5_5,b5_6,b5_7,b5_8,b5_9
+		b6_1,b6_2,b6_3,b6_4,b6_5,b6_6,b6_7,b6_8,b6_9
+		b7_1,b7_2,b7_3,b7_4,b7_5,b7_6,b7_7,b7_8,b7_9
+		b8_1,b8_2,b8_3,b8_4,b8_5,b8_6,b8_7,b8_8,b8_9
+		b9_1,b9_2,b9_3,b9_4,b9_5,b9_6,b9_7,b9_8,b9_9	];
+
+  
+
+ imupdated1 = [	b1_4,b1_3,b1_5,b1_2,b1_6,b1_9,b1_7,b1_8,b1_1
+ 	      	b2_6,b2_8,b2_2,b2_5,b2_7,b2_1,b2_4,b2_9,b2_3
+	      	b3_1,b3_9,b3_7,b3_8,b3_3,b3_4,b3_5,b3_6,b3_2
+		b4_8,b4_2,b4_6,b4_1,b4_9,b4_5,b4_3,b4_4,b4_7
+		b5_3,b5_7,b5_4,b5_6,b5_8,b5_2,b5_9,b5_1,b5_5
+		b6_9,b6_5,b6_1,b6_7,b6_4,b6_3,b6_6,b6_2,b6_8
+		b7_5,b7_1,b7_9,b7_3,b7_2,b7_6,b7_8,b7_7,b7_4
+		b8_2,b8_4,b8_8,b8_9,b8_5,b8_7,b8_1,b8_3,b8_6
+		b9_7,b9_6,b9_3,b9_4,b9_1,b9_8,b9_2,b9_5,b9_9	];
+        
+        figure;
+imshow(imupdated1);
+
+  SecretStream = '';
+
+           b1_4_red=b1_4(:,:,1);
+	   b1_4_green=b1_4(:,:,2);
+	   b1_4_blue=b1_4(:,:,3);
+%k=1;
+ for i=1:8
+ 	for j=1:8
+		if (((i == 1) && (j == 5 )) || (( i == 2 ) && (j == 3)) || ((i == 3 ) && (j == 1)) || ((i == 4) && (j == 7)) || ((i == 5) && (j == 2)) | ((i == 2) && (j == 3))|| ((i == 7) && (j == 6)) || ((i == 4) && (j == 5 )))
+		 
+		    SecretStream=strcat(SecretStream,num2str(bitget(b1_4_red(i,j),2)));
+                    SecretStream=strcat(SecretStream,num2str(bitget(b1_4_red(i,j),1)));
+		end
+	end
+ end
+
+
+
+	   b7_8_red=b7_8(:,:,1);
+	   b7_8_green=b7_8(:,:,2);
+	   b7_8_blue=b7_8(:,:,3);
+
+k=1;
+ for i=1:8
+ 	for j=1:8
+		if (((i == 1) && (j == 5 )) || (( i == 2 ) && (j == 3)) || ((i == 3 ) && (j == 1)) || ((i == 4) && (j == 7)) || ((i == 5) && (j == 2)) | ((i == 2) && (j == 3))|| ((i == 7) && (j == 6)) || ((i == 4) && (j == 5 )))
+
+		    SecretStream=strcat(SecretStream,num2str(bitget(b7_8_red(i,j),2)));
+                    SecretStream=strcat(SecretStream,num2str(bitget(b7_8_red(i,j),1)));
+		end
+	end
+ end
+
+
+
+	   b4_1_red=b4_1(:,:,1);
+	   b4_1_green=b4_1(:,:,2);
+	   b4_1_blue=b4_1(:,:,3);
+
+
+k=1;
+ for i=1:8
+ 	for j=1:8
+		
+
+if (((i == 1) && (j == 5 )) || (( i == 2 ) && (j == 3)) || ((i == 3 ) && (j == 1)) || ((i == 4) && (j == 7)) || ((i == 5) && (j == 2)) | ((i == 2) && (j == 3))|| 
+((i == 7) && (j == 6)) || ((i == 4) && (j == 5 )))
+		
+		SecretStream=strcat(SecretStream,num2str(bitget(b4_1_red(i,j),2)));
+                SecretStream=strcat(SecretStream,num2str(bitget(b4_1_red(i,j),1)));
+
+		end
+	end
+ end
+PCStream=SecretStream;
+disp(PCStream);
+      
+      [r totpels]=size(PCStream);
+       charcounter=0;tempstream='';
+            plaintext='';
+            for ln_stream1reader=1:totpels
+                charcounter=charcounter+1;
+                %disp(charcounter);
+                if(charcounter>6)
+                     tempstream=strcat(tempstream,PCStream(ln_stream1reader));
+                     if(bin2dec(tempstream)==32)
+                        plaintext=strcat(plaintext,{' '});
+                     else
+                        plaintext=strcat(plaintext,char(bin2dec(tempstream)));
+                     end
+                     tempstream='';charcounter=0;
+                else
+                     tempstream=strcat(tempstream,PCStream(ln_stream1reader));
+                end
+                
+            end
+           disp(plaintext);
+ 
+
+
+  %==============================================================================================================      
+
+  
+
+
+
+ 
